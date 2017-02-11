@@ -11,7 +11,6 @@ Hardware
 ========
 * 控制器　 : STM32F411C 48Pin 100MHz DSP FPU
 * 感測器　 : [MPU6500](https://www.invensense.com/products/motion-tracking/6-axis/mpu-6500/) / [ICM20602](https://www.invensense.com/products/motion-tracking/6-axis/icm-20602/) + [IST8310](http://www.isentek.com/en/the_product.php?pid=4)+ [LPS25HB](http://www.st.com/en/mems-and-sensors/lps25hb.html)
-* 記憶體　 : [W25Q128](http://www.winbond.com/hq/product/code-storage-flash-memory/serial-nor-flash/?__locale=en)
 * 設計軟體 [Altium Designer 17](http://www.altium.com/en/products/altium-designer) ( PcbLib use AD [PcbLib v2.15](https://github.com/KitSprout/AltiumDesigner_PcbLibrary/releases/tag/v2.12) )
 
 View
