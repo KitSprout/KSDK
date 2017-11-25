@@ -12,7 +12,7 @@ Hardware
 ========
 * 控制器 : [STM32F411CE](http://www.st.com/en/microcontrollers/stm32f411ce.html) 48Pin 100MHz DSP FPU / [nRF52832](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF52832) 48Pin 64MHz DSP FPU
 * 感測器 : [ICM20948](https://www.invensense.com/products/motion-tracking/9-axis/icm-20948/) + [LPS22HB](http://www.st.com/content/st_com/en/products/mems-and-sensors/pressure-sensors/lps22hb.html) + [IST8308](http://www.isentek.com/zhtw/the_product.php?pid=4)
-* 設計軟體 [Altium Designer 17](http://www.altium.com/altium-designer/overview) ( PcbLib use AD [PcbLib v3.2](https://github.com/KitSprout/AltiumDesigner_PcbLibrary/releases/tag/v3.3) )
+* 設計軟體 [Altium Designer 17](http://www.altium.com/altium-designer/overview) ( PcbLib use AD [PcbLib v3.3](https://github.com/KitSprout/AltiumDesigner_PcbLibrary/releases/tag/v3.3) )
 
 View
 ========
