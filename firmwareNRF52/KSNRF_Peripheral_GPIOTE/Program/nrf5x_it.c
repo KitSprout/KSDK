@@ -25,7 +25,7 @@
 /* Private define --------------------------------------------------------------------------*/
 /* Private macro ---------------------------------------------------------------------------*/
 /* Private variables -----------------------------------------------------------------------*/
-extern pFunc GPIOTE_EVENT;
+extern GPIOTE_InitTypeDef hKey;
 
 /* Private function prototypes -------------------------------------------------------------*/
 /* Private functions -----------------------------------------------------------------------*/
@@ -49,9 +49,9 @@ void PendSV_Handler( void ) { while(1); }
 
 void GPIOTE_IRQHandler( void )
 {
-  if (GPIOTE_EVENTS_IN(KEY_IRQx_LINE) != RESET) {
-    GPIOTE_EVENTS_IN(KEY_IRQx_LINE) = RESET;
-    GPIOTE_EVENT();
+  if (hKey.Instance->EVENTS_IN[hKey.Line] != RESET) {
+    hKey.Instance->EVENTS_IN[hKey.Line] = RESET;
+    hKey.EventCallback();
   }
 }
   

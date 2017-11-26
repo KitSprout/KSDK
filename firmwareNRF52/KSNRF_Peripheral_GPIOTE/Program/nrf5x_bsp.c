@@ -26,6 +26,16 @@
 /* Private define --------------------------------------------------------------------------*/
 /* Private macro ---------------------------------------------------------------------------*/
 /* Private variables -----------------------------------------------------------------------*/
+GPIOTE_InitTypeDef hKey = {
+  .Instance      = KEY_GPIOTEx,
+  .Pin           = KEY_PIN,
+  .Line          = KEY_GPIOTEx_LINE,
+  .Mode          = KEY_GPIOTEx_IRQn_MODE,
+  .Polarity      = KEY_GPIOTEx_IRQn_POLARITY,
+  .OutInit       = KEY_GPIOTEx_IRQn_OUTINIT,
+  .EventCallback = NULL
+};
+
 /* Private function prototypes -------------------------------------------------------------*/
 /* Private functions -----------------------------------------------------------------------*/
 
@@ -43,17 +53,13 @@ void BSP_GPIO_Config( void )
 
 void BSP_GPIOE_Config( pFunc event )
 {
-  GPIOTE_InitTypeDef GPIOTE_InitStruct;
+  GPIOTE_Init(&hKey);
 
-  GPIOTE_InitStruct.Pin      = KEY_PIN;
-  GPIOTE_InitStruct.Line     = KEY_IRQx_LINE;
-  GPIOTE_InitStruct.Mode     = GPIOTE_CONFIG_MODE_Event;
-  GPIOTE_InitStruct.Polarity = KEY_IRQx_POLARITY;
-  GPIOTE_InitStruct.Event    = event;
-  GPIOTE_Init(&GPIOTE_InitStruct);
-  
   if (event != NULL) {
-    GPIOTE_IntCmd(KEY_IRQx_LINE, ENABLE);
+    hKey.EventCallback = event;
+    NVIC_SetPriority(KEY_GPIOTEx_IRQn, KEY_GPIOTEx_IRQn_PRIORITY);
+    NVIC_EnableIRQ(KEY_GPIOTEx_IRQn);
+    GPIOTE_IntCmd(&hKey, ENABLE);
   }
 }
 

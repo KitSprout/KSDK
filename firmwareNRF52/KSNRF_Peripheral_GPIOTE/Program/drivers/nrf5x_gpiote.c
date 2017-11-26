@@ -25,8 +25,6 @@
 /* Private define --------------------------------------------------------------------------*/
 /* Private macro ---------------------------------------------------------------------------*/
 /* Private variables -----------------------------------------------------------------------*/
-pFunc GPIOTE_EVENT = NULL;
-
 /* Private function prototypes -------------------------------------------------------------*/
 /* Private functions -----------------------------------------------------------------------*/
 
@@ -35,26 +33,22 @@ pFunc GPIOTE_EVENT = NULL;
  */
 void GPIOTE_Init( GPIOTE_InitTypeDef *hgpiotx )
 {
-  NRF_GPIOTE->CONFIG[hgpiotx->Line] = (hgpiotx->Pin      << GPIOTE_CONFIG_PSEL_Pos) | 
-                                      (hgpiotx->Mode     << GPIOTE_CONFIG_MODE_Pos) | 
-                                      (hgpiotx->Polarity << GPIOTE_CONFIG_POLARITY_Pos) | 
-                                      (hgpiotx->OutInit  << GPIOTE_CONFIG_OUTINIT_Pos);
-  GPIOTE_EVENT = hgpiotx->Event;
-  if (GPIOTE_EVENT != NULL) {
-    NVIC_EnableIRQ(GPIOTE_IRQn);
-  }
+  hgpiotx->Instance->CONFIG[hgpiotx->Line] = (hgpiotx->Pin      << GPIOTE_CONFIG_PSEL_Pos) | 
+                                             (hgpiotx->Mode     << GPIOTE_CONFIG_MODE_Pos) | 
+                                             (hgpiotx->Polarity << GPIOTE_CONFIG_POLARITY_Pos) | 
+                                             (hgpiotx->OutInit  << GPIOTE_CONFIG_OUTINIT_Pos);
 }
 
 /**
  *  @brief  GPIOTE_IntCmd
  */
-void GPIOTE_IntCmd( uint32_t line, uint32_t state )
+void GPIOTE_IntCmd( GPIOTE_InitTypeDef *hgpiotx, uint32_t state )
 {
   if (state == ENABLE) {
-    NRF_GPIOTE->INTENSET = 1UL << line;
+    NRF_GPIOTE->INTENSET = 1UL << hgpiotx->Line;
   }
   else {
-    NRF_GPIOTE->INTENCLR = 1UL << line;
+    NRF_GPIOTE->INTENCLR = 1UL << hgpiotx->Line;
   }
 }
 

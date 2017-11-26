@@ -59,9 +59,16 @@
 
 #define KEY_PIN                       11
 #define KEY_Read()                    (__GPIO_READ(KEY_PIN) == 1)
-#define KEY_IRQx_LINE                 0
-#define KEY_IRQx_INT_LINE             NRF_GPIOTE_INT_IN0_MASK
-#define KEY_IRQx_POLARITY             NRF_GPIOTE_POLARITY_LOTOHI
+
+#define KEY_GPIOTEx                   NRF_GPIOTE
+#define KEY_GPIOTEx_LINE              0
+#define KEY_GPIOTEx_IRQn              GPIOTE_IRQn
+#define KEY_GPIOTEx_IRQn_PRIORITY     1
+#define KEY_GPIOTEx_IRQn_INT_LINE     NRF_GPIOTE_INT_IN0_MASK
+#define KEY_GPIOTEx_IRQn_POLARITY     NRF_GPIOTE_POLARITY_LOTOHI
+#define KEY_GPIOTEx_IRQn_MODE         GPIOTE_CONFIG_MODE_Event
+#define KEY_GPIOTEx_IRQn_OUTINIT      NRF_GPIOTE_INITIAL_VALUE_LOW
+
 
 /* Exported functions ----------------------------------------------------------------------*/
 

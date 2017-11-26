@@ -26,6 +26,8 @@
 /* Exported types --------------------------------------------------------------------------*/
 
 typedef struct {
+  NRF_GPIOTE_Type *Instance;
+
   uint8_t Line;
   // Line 0-3
   uint32_t Pin;
@@ -41,17 +43,15 @@ typedef struct {
   uint32_t OutInit;
   // NRF_GPIOTE_INITIAL_VALUE_LOW  - Initial low output when in task mode.
   // NRF_GPIOTE_INITIAL_VALUE_HIGH - Initial high output when in task mode.
-  pFunc Event;
-  // GPIOTE EVENT HANDLE
+  pFunc EventCallback;
+  // GPIOTE EVENT CALLBACK
 } GPIOTE_InitTypeDef;
 
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported macro --------------------------------------------------------------------------*/
-#define GPIOTE_EVENTS_IN(__LINE)    NRF_GPIOTE->EVENTS_IN[__LINE]
-
 /* Exported functions ----------------------------------------------------------------------*/  
 void GPIOTE_Init( GPIOTE_InitTypeDef *hgpiotx );
-void GPIOTE_IntCmd( uint32_t line, uint32_t state );
+void GPIOTE_IntCmd( GPIOTE_InitTypeDef *hgpiotx, uint32_t state );
 
 #ifdef __cplusplus
 }
