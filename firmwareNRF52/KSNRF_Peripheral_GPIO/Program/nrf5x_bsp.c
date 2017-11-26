@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_bsp.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    26-Nov-2017
  *  @brief   
  * 
  */

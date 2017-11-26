@@ -38,14 +38,14 @@ typedef enum {
 } KS_StatusTypeDef;
 
 typedef enum {
-  KS_RESET = 0U, 
-  KS_SET = !KS_RESET
-} KS_FlagStatus;
+  RESET = 0U, 
+  SET = !RESET
+} FlagStatus;
 
 typedef enum {
-  KS_DISABLE = 0U, 
-  KS_ENABLE = !KS_DISABLE
-} KS_FunctionalState;
+  DISABLE = 0U, 
+  ENABLE = !DISABLE
+} FunctionalState;
 
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported macro --------------------------------------------------------------------------*/
