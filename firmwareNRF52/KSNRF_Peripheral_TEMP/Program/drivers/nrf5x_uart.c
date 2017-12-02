@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_uart.c
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -17,7 +17,7 @@
 #include "drivers\nrf5x_system.h"
 #include "drivers\nrf5x_uart.h"
 
-/** @addtogroup NRF52_Driver
+/** @addtogroup NRF5x_Driver
  *  @{
  */
 
@@ -46,12 +46,10 @@ void UART_Init( UART_InitTypeDef *huart )
     huart->Instance->PSELRTS = huart->PinRTS;
   }
 
-  huart->Instance->CONFIG        = huart->Parity | 
-                                  huart->HardwareFlowControl;
-  huart->Instance->BAUDRATE      = huart->BaudRate;
-  huart->Instance->TASKS_STARTTX = 1;
-  huart->Instance->TASKS_STARTRX = 1;
-  huart->Instance->EVENTS_RXDRDY = 0;
+  huart->Instance->CONFIG   = huart->Parity | 
+                              huart->HardwareFlowControl;
+  huart->Instance->BAUDRATE = huart->BaudRate;
+  UART_Start(huart);
 }
 
 /**
@@ -68,9 +66,9 @@ void UART_Cmd( UART_InitTypeDef *huart, uint32_t state )
 }
 
 /**
- *  @brief  UART_IntCmd
+ *  @brief  UART_InterruptCmd
  */
-void UART_IntCmd( UART_InitTypeDef *huart, uint32_t mode, uint32_t state )
+void UART_InterruptCmd( UART_InitTypeDef *huart, uint32_t mode, uint32_t state )
 {
   if (state == ENABLE) {
     huart->Instance->INTENSET = mode;
@@ -81,13 +79,32 @@ void UART_IntCmd( UART_InitTypeDef *huart, uint32_t mode, uint32_t state )
 }
 
 /**
+ *  @brief  UART_Start
+ */
+void UART_Start( UART_InitTypeDef *huart )
+{
+  UART_EVENTS_TXDRDY(huart->Instance) = RESET;
+  UART_EVENTS_RXDRDY(huart->Instance) = RESET;
+  UART_TASKS_STARTTX(huart->Instance);
+  UART_TASKS_STARTRX(huart->Instance);
+}
+
+/**
+ *  @brief  UART_Stop
+ */
+void UART_Stop( UART_InitTypeDef *huart )
+{
+  UART_TASKS_SUSPEND(huart->Instance);
+}
+
+/**
  *  @brief  UART_SendByte
  */
 void UART_SendByte( UART_InitTypeDef *huart, uint8_t *sendByte )
 {
   huart->Instance->TXD = *sendByte;
-  while (huart->Instance->EVENTS_TXDRDY != SET);   // Wait for TXD data to be sent
-  huart->Instance->EVENTS_TXDRDY = RESET;
+  while (UART_EVENTS_TXDRDY(huart->Instance) != SET);   // Wait for TXD data to be sent
+  UART_EVENTS_TXDRDY(huart->Instance) = RESET;
 }
 
 /**
@@ -95,8 +112,8 @@ void UART_SendByte( UART_InitTypeDef *huart, uint8_t *sendByte )
  */
 void UART_RecvByte( UART_InitTypeDef *huart, uint8_t *recvByte )
 {
-  while (huart->Instance->EVENTS_RXDRDY != SET);   // Wait for RXD data to be received
-  huart->Instance->EVENTS_RXDRDY = RESET;
+  while (UART_EVENTS_RXDRDY(huart->Instance) != SET);   // Wait for RXD data to be received
+  UART_EVENTS_RXDRDY(huart->Instance) = RESET;
   *recvByte = (uint8_t)huart->Instance->RXD;
 }
 
@@ -111,8 +128,8 @@ uint32_t UART_SendData( UART_InitTypeDef *huart, uint8_t *sendData, uint32_t len
 
   while (lens--) {
     huart->Instance->TXD = *sendData++;
-    while (huart->Instance->EVENTS_TXDRDY != SET);
-    huart->Instance->EVENTS_TXDRDY = RESET;
+    while (UART_EVENTS_TXDRDY(huart->Instance) != SET);
+    UART_EVENTS_TXDRDY(huart->Instance) = RESET;
   }
 
   return KS_OK;
@@ -128,8 +145,8 @@ uint32_t UART_RecvData( UART_InitTypeDef *huart, uint8_t *recvData, uint32_t len
   }
 
   while (lens--) {
-    while (huart->Instance->EVENTS_RXDRDY != SET);
-    huart->Instance->EVENTS_RXDRDY = RESET;
+    while (UART_EVENTS_RXDRDY(huart->Instance) != SET);
+    UART_EVENTS_RXDRDY(huart->Instance) = RESET;
     *recvData++ = (uint8_t)huart->Instance->RXD;
   }
 
@@ -147,16 +164,16 @@ uint32_t UART_SendDataWaitTimeout( UART_InitTypeDef *huart, uint8_t *sendData, u
 
   while (lens--) {
     huart->Instance->TXD = *sendData++;
-    while (huart->Instance->EVENTS_TXDRDY != SET) {
+    while (UART_EVENTS_TXDRDY(huart->Instance) != SET) {
       if (--timeout) {
         delay_us(1);
       }
       else {
-        huart->Instance->EVENTS_TXDRDY = RESET;
+        UART_EVENTS_TXDRDY(huart->Instance) = RESET;
         return KS_TIMEOUT;
       }
     }
-    huart->Instance->EVENTS_TXDRDY = RESET;
+    UART_EVENTS_TXDRDY(huart->Instance) = RESET;
   }
 
   return KS_OK;
@@ -172,16 +189,16 @@ uint32_t UART_RecvDataWaitTimeout( UART_InitTypeDef *huart, uint8_t *recvData, u
   }
 
   while (lens--) {
-    while (huart->Instance->EVENTS_RXDRDY != SET) {
+    while (UART_EVENTS_RXDRDY(huart->Instance) != SET) {
       if (--timeout) {
         delay_us(1);
       }
       else {
-        huart->Instance->EVENTS_RXDRDY = RESET;
+        UART_EVENTS_RXDRDY(huart->Instance) = RESET;
         return KS_TIMEOUT;
       }
     }
-    huart->Instance->EVENTS_RXDRDY = RESET;
+    UART_EVENTS_RXDRDY(huart->Instance) = RESET;
     *recvData++ = (uint8_t)huart->Instance->RXD;
   }
 
@@ -197,8 +214,8 @@ uint32_t UART_RecvDataContinuous( UART_InitTypeDef *huart, uint8_t *recvData )
   uint32_t wait = 0x7FFF; // about 32767 clocks
 
   while (wait--) {
-    while (huart->Instance->EVENTS_RXDRDY != SET) {
-      huart->Instance->EVENTS_TXDRDY = RESET;
+    while (UART_EVENTS_RXDRDY(huart->Instance) != SET) {
+      UART_EVENTS_RXDRDY(huart->Instance) = RESET;
       *recvData++ = (uint8_t)huart->Instance->RXD;
       lens++;
       wait = 0x7FFF;

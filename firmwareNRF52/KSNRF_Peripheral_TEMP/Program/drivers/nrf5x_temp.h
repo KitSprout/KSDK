@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_temp.h
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -21,11 +21,16 @@
  extern "C" {
 #endif
 /* Includes --------------------------------------------------------------------------------*/
-#include "nrf.h"
+#include "drivers\nrf5x_system.h"
 
 /* Exported types --------------------------------------------------------------------------*/
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported macro --------------------------------------------------------------------------*/
+#define TEMP_TASKS_START()      (NRF_TEMP->TASKS_START = SET)  // Start temperature measurement
+#define TEMP_TASKS_STOP()       (NRF_TEMP->TASKS_STOP = SET)   // Stop temperature measurement\
+
+#define TEMP_EVENTS_DATARDY()   NRF_TEMP->EVENTS_DATARDY        // Temperature measurement complete, data ready
+
 /* Exported functions ----------------------------------------------------------------------*/  
 void      TEMP_Init( void );
 float32_t TEMP_GetTemperature( void );

@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_it.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -17,7 +17,7 @@
 #include "drivers\nrf5x_system.h"
 #include "modules\serial.h"
 
-/** @addtogroup NRF52_Program
+/** @addtogroup NRF5x_Program
  *  @{
  */
 
@@ -80,5 +80,12 @@ void UARTE0_UART0_IRQHandler( void )
 //void RTC2_IRQHandler( void )
 //void I2S_IRQHandler( void )
 //void FPU_IRQHandler( void )
+//void USBD_IRQHandler( void )
+//void UARTE1_IRQHandler( void )
+//void QSPI_IRQHandler( void )
+//void CRYPTOCELL_IRQHandler( void )
+//void SPIM3_IRQHandler( void )
+//void PWM3_IRQHandler( void )
+
 
 /*************************************** END OF FILE ****************************************/

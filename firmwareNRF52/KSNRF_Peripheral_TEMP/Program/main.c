@@ -8,7 +8,7 @@
  * 
  *  @file    main.c
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -32,11 +32,10 @@
 
 int main( void )
 {
-  BSP_GPIO_Config();
+  BSP_CLOCK_Config();
   BSP_TEMP_Config();
+  BSP_GPIO_Config();
   BSP_UART_SERIAL_Config(NULL);
-
-  nrf_temp_init();
 
   while (1) {
     LED_G_Toggle();

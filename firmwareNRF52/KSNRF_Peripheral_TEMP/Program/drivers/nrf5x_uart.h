@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_uart.h
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -21,7 +21,7 @@
  extern "C" {
 #endif
 /* Includes --------------------------------------------------------------------------------*/
-#include "nrf.h"
+#include "drivers\nrf5x_system.h"
 
 /* Exported types --------------------------------------------------------------------------*/
 
@@ -62,10 +62,25 @@ typedef struct {
 
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported macro --------------------------------------------------------------------------*/
+#define UART_TASKS_STARTRX(__INS)   (__INS->TASKS_STARTRX = SET)    // Start UART receiver
+#define UART_TASKS_STOPRX(__INS)    (__INS->TASKS_STOPRX = SET)     // Stop UART receiver
+#define UART_TASKS_STARTTX(__INS)   (__INS->TASKS_STARTTX = SET)    // Start UART transmitter
+#define UART_TASKS_STOPTX(__INS)    (__INS->TASKS_STOPTX = SET)     // Stop UART transmitter
+#define UART_TASKS_SUSPEND(__INS)   (__INS->TASKS_SUSPEND = SET)    // Suspend UART
+
+#define UART_EVENTS_CTS(__INS)      __INS->EVENTS_CTS       // CTS is activated (set low). Clear To Send.
+#define UART_EVENTS_NCTS(__INS)     __INS->EVENTS_NCTS      // CTS is deactivated (set high). Not Clear To Send.
+#define UART_EVENTS_RXDRDY(__INS)   __INS->EVENTS_RXDRDY    // Data received in RXD.
+#define UART_EVENTS_TXDRDY(__INS)   __INS->EVENTS_TXDRDY    // Data sent from TXD
+#define UART_EVENTS_ERROR(__INS)    __INS->EVENTS_ERROR     // Error detected
+#define UART_EVENTS_RXTO(__INS)     __INS->EVENTS_RXTO      // Receiver timeout
+
 /* Exported functions ----------------------------------------------------------------------*/  
 void      UART_Init( UART_InitTypeDef *huart );
 void      UART_Cmd( UART_InitTypeDef *huart, uint32_t state );
-void      UART_IntCmd( UART_InitTypeDef *huart, uint32_t mode, uint32_t state );
+void      UART_InterruptCmd( UART_InitTypeDef *huart, uint32_t mode, uint32_t state );
+void      UART_Start( UART_InitTypeDef *huart );
+void      UART_Stop( UART_InitTypeDef *huart );
 void      UART_SendByte( UART_InitTypeDef *huart, uint8_t *sendByte );
 void      UART_RecvByte( UART_InitTypeDef *huart, uint8_t *recvData );
 uint32_t  UART_SendData( UART_InitTypeDef *huart, uint8_t *sendData, uint32_t lens );

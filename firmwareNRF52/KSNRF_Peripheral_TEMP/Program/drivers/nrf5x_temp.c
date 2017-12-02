@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_temp.c
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -17,7 +17,7 @@
 #include "drivers\nrf5x_system.h"
 #include "drivers\nrf5x_temp.h"
 
-/** @addtogroup NRF52_Driver
+/** @addtogroup NRF5x_Driver
  *  @{
  */
 
@@ -43,10 +43,10 @@ float32_t TEMP_GetTemperature( void )
 {
   float32_t temperature;
 
-  NRF_TEMP->TASKS_START = SET;
-  while (NRF_TEMP->EVENTS_DATARDY != SET);
-  NRF_TEMP->EVENTS_DATARDY = RESET;
-  temperature = nrf_temp_read() *0.25f;
+  TEMP_TASKS_START();
+  while (TEMP_EVENTS_DATARDY() != SET);
+  TEMP_EVENTS_DATARDY() = RESET;
+  temperature = nrf_temp_read() * 0.25f;
 
   return (temperature);
 }

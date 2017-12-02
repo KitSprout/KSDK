@@ -8,18 +8,19 @@
  * 
  *  @file    nrf5x_bsp.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
 
 /* Includes --------------------------------------------------------------------------------*/
 #include "drivers\nrf5x_system.h"
+#include "drivers\nrf5x_clock.h"
 #include "drivers\nrf5x_temp.h"
 #include "modules\serial.h"
 #include "nrf5x_bsp.h"
 
-/** @addtogroup NRF52_Program
+/** @addtogroup NRF5x_Program
  *  @{
  */
 
@@ -29,6 +30,16 @@
 /* Private variables -----------------------------------------------------------------------*/
 /* Private function prototypes -------------------------------------------------------------*/
 /* Private functions -----------------------------------------------------------------------*/
+
+void BSP_CLOCK_Config( void )
+{
+  CLOCK_Config();
+}
+
+void BSP_TEMP_Config( void )
+{
+  TEMP_Init();
+}
 
 void BSP_GPIO_Config( void )
 {
@@ -40,11 +51,6 @@ void BSP_GPIO_Config( void )
   LED_R_Set();
   LED_G_Set();
   LED_B_Set();
-}
-
-void BSP_TEMP_Config( void )
-{
-  TEMP_Init();
 }
 
 void BSP_UART_SERIAL_Config( pFunc rxEvent )

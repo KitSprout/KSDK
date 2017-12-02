@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_bsp.h
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -27,8 +27,9 @@
 /* Exported types --------------------------------------------------------------------------*/
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported functions ----------------------------------------------------------------------*/
-void BSP_GPIO_Config( void );
+void BSP_CLOCK_Config( void );
 void BSP_TEMP_Config( void );
+void BSP_GPIO_Config( void );
 void BSP_UART_SERIAL_Config( pFunc rxEvent );
 
 #ifdef __cplusplus
