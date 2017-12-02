@@ -8,7 +8,7 @@
  * 
  *  @file    main.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -30,6 +30,7 @@
 
 int main( void )
 {
+  BSP_CLOCK_Config();
   BSP_GPIO_Config();
 
   while (1) {

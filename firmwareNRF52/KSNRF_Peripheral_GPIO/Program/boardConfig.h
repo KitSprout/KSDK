@@ -8,7 +8,7 @@
  * 
  *  @file    boardConfig.h
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -32,33 +32,30 @@
 #define KS_HW_USE_CLOCK_SOUCE_HSE     (1U)
 #define KS_HW_CLOCK_SOUCE             KS_HW_USE_CLOCK_SOUCE_HSE
 
-#define KS_FW_UART_HAL_LIBRARY        (0U)
-#define KS_FW_SPI_HAL_LIBRARY         (0U)
-#define KS_FW_I2C_HAL_LIBRARY         (0U)
-#define KS_FW_USB_ENABLE              (0U)
-
-#define KS_SYSCLK                     SystemCoreClock
-
 
 /* -------- LED and KEY */
 
 #define LED_R_PIN                     6
-#define LED_R_Set()                   __GPIO_SET(LED_R_PIN)
-#define LED_R_Reset()                 __GPIO_RST(LED_R_PIN)
-#define LED_R_Toggle()                __GPIO_TOG(LED_R_PIN)
+#define LED_R_PORT                    NRF_P0
+#define LED_R_Set()                   __GPIO_SET(LED_R_PORT, LED_R_PIN)
+#define LED_R_Reset()                 __GPIO_RST(LED_R_PORT, LED_R_PIN)
+#define LED_R_Toggle()                __GPIO_TOG(LED_R_PORT, LED_R_PIN)
 
 #define LED_G_PIN                     7
-#define LED_G_Set()                   __GPIO_SET(LED_G_PIN)
-#define LED_G_Reset()                 __GPIO_RST(LED_G_PIN)
-#define LED_G_Toggle()                __GPIO_TOG(LED_G_PIN)
+#define LED_G_PORT                    NRF_P0
+#define LED_G_Set()                   __GPIO_SET(LED_G_PORT, LED_G_PIN)
+#define LED_G_Reset()                 __GPIO_RST(LED_G_PORT, LED_G_PIN)
+#define LED_G_Toggle()                __GPIO_TOG(LED_G_PORT, LED_G_PIN)
 
 #define LED_B_PIN                     8
-#define LED_B_Set()                   __GPIO_SET(LED_B_PIN)
-#define LED_B_Reset()                 __GPIO_RST(LED_B_PIN)
-#define LED_B_Toggle()                __GPIO_TOG(LED_B_PIN)
+#define LED_B_PORT                    NRF_P0
+#define LED_B_Set()                   __GPIO_SET(LED_B_PORT, LED_B_PIN)
+#define LED_B_Reset()                 __GPIO_RST(LED_B_PORT, LED_B_PIN)
+#define LED_B_Toggle()                __GPIO_TOG(LED_B_PORT, LED_B_PIN)
 
 #define KEY_PIN                       11
-#define KEY_Read()                    (__GPIO_READ(KEY_PIN) == 1)
+#define KEY_PORT                      NRF_P0
+#define KEY_Read()                    (__GPIO_READ(KEY_PORT, KEY_PIN) == SET)
 
 #define KEY_GPIOTEx                   NRF_GPIOTE
 #define KEY_GPIOTEx_LINE              0

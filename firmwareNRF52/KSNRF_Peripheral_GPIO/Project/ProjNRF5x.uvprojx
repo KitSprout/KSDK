@@ -10,8 +10,7 @@
       <TargetName>NRF52832</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
-      <uAC6>0</uAC6>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>nRF52832_xxAA</Device>
@@ -320,7 +319,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>0</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
@@ -395,6 +394,11 @@
         <Group>
           <GroupName>Driver</GroupName>
           <Files>
+            <File>
+              <FileName>nrf5x_clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Program\drivers\nrf5x_clock.c</FilePath>
+            </File>
             <File>
               <FileName>nrf5x_delay.c</FileName>
               <FileType>1</FileType>
