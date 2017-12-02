@@ -170,10 +170,6 @@
       <pszMrule></pszMrule>
       <pSingCmds></pSingCmds>
       <pMultCmds></pMultCmds>
-      <pMisraNamep></pMisraNamep>
-      <pszMrulep></pszMrulep>
-      <pSingCmdsp></pSingCmdsp>
-      <pMultCmdsp></pMultCmdsp>
     </TargetOption>
   </Target>
 
@@ -222,8 +218,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Program\drivers\nrf5x_delay.c</PathWithFileName>
-      <FilenameWithoutPath>nrf5x_delay.c</FilenameWithoutPath>
+      <PathWithFileName>..\Program\drivers\nrf5x_clock.c</PathWithFileName>
+      <FilenameWithoutPath>nrf5x_clock.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -234,8 +230,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Program\drivers\nrf5x_gpiote.c</PathWithFileName>
-      <FilenameWithoutPath>nrf5x_gpiote.c</FilenameWithoutPath>
+      <PathWithFileName>..\Program\drivers\nrf5x_delay.c</PathWithFileName>
+      <FilenameWithoutPath>nrf5x_delay.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

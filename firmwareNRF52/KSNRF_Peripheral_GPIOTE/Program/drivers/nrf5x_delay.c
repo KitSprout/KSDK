@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_delay.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -16,7 +16,7 @@
 /* Includes --------------------------------------------------------------------------------*/
 #include "nrf_delay.h"
 
-/** @addtogroup NRF52_Driver
+/** @addtogroup NRF5x_Driver
  *  @{
  */
 
@@ -49,7 +49,7 @@ void delay_us( __IO uint32_t __us )
  *  @brief  delay_ms
  */void delay_ms( __IO uint32_t __ms )
 {
-  while(__ms != 0) {
+  while (__ms != 0) {
     __ms--;
     nrf_delay_us(999);
   }

@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_gpiote.c
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    30-Nov-2017
  *  @brief   
  * 
  */
@@ -17,7 +17,7 @@
 #include "drivers\nrf5x_system.h"
 #include "drivers\nrf5x_gpiote.h"
 
-/** @addtogroup NRF52_Driver
+/** @addtogroup NRF5x_Driver
  *  @{
  */
 
@@ -40,15 +40,15 @@ void GPIOTE_Init( GPIOTE_InitTypeDef *hgpiotx )
 }
 
 /**
- *  @brief  GPIOTE_IntCmd
+ *  @brief  GPIOTE_InterruptCmd
  */
-void GPIOTE_IntCmd( GPIOTE_InitTypeDef *hgpiotx, uint32_t state )
+void GPIOTE_InterruptCmd( GPIOTE_InitTypeDef *hgpiotx, uint32_t state )
 {
   if (state == ENABLE) {
-    NRF_GPIOTE->INTENSET = 1UL << hgpiotx->Line;
+    hgpiotx->Instance->INTENSET = 1UL << hgpiotx->Line;
   }
   else {
-    NRF_GPIOTE->INTENCLR = 1UL << hgpiotx->Line;
+    hgpiotx->Instance->INTENCLR = 1UL << hgpiotx->Line;
   }
 }
 

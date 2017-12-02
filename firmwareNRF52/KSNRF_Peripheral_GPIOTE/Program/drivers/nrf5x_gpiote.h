@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_gpiote.h
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    30-Nov-2017
  *  @brief   
  * 
  */
@@ -21,7 +21,7 @@
  extern "C" {
 #endif
 /* Includes --------------------------------------------------------------------------------*/
-#include "nrf.h"
+#include "drivers\nrf5x_system.h"
 
 /* Exported types --------------------------------------------------------------------------*/
 
@@ -49,9 +49,16 @@ typedef struct {
 
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported macro --------------------------------------------------------------------------*/
+#define TIMER_TASKS_OUT(__INS, __CH)    (__INS->TASKS_OUT[__CH] = SET)      // Task for writing to pin specified in CONFIG[x].PSEL. Action on pin is configured in CONFIG[7].POLARITY.
+#define TIMER_TASKS_SET(__INS, __CH)    (__INS->TASKS_SET[__CH] = SET)      // Task for writing to pin specified in CONFIG[x].PSEL. Action on pin is to set it high.
+#define TIMER_TASKS_CLR(__INS, __CH)    (__INS->TASKS_CLR[__CH] = SET)      // Task for writing to pin specified in CONFIG[x].PSEL. Action on pin is to set it low.
+#define TIMER_TASKS_CLEAR(__INS)        (__INS->TASKS_CLEAR = SET)          // Clear time
+
+#define TIMER_EVENT_IN(__INS, __CH)     __INS->EVENTS_IN[__CH]              // Event generated from pin specified in CONFIG[x].PSEL
+
 /* Exported functions ----------------------------------------------------------------------*/  
 void GPIOTE_Init( GPIOTE_InitTypeDef *hgpiotx );
-void GPIOTE_IntCmd( GPIOTE_InitTypeDef *hgpiotx, uint32_t state );
+void GPIOTE_InterruptCmd( GPIOTE_InitTypeDef *hgpiotx, uint32_t state );
 
 #ifdef __cplusplus
 }

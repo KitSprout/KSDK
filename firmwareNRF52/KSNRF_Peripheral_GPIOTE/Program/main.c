@@ -8,7 +8,7 @@
  * 
  *  @file    main.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -26,23 +26,26 @@
 /* Private macro ---------------------------------------------------------------------------*/
 /* Private variables -----------------------------------------------------------------------*/
 /* Private function prototypes -------------------------------------------------------------*/
-/* Private functions -----------------------------------------------------------------------*/
+void IRQEvent_KeyTrigger( void );
 
-void gpioteEvent( void )
-{
-  LED_G_Toggle();
-}
+/* Private functions -----------------------------------------------------------------------*/
 
 int main( void )
 {
+  BSP_CLOCK_Config();
   BSP_GPIO_Config();
-  BSP_GPIOE_Config(gpioteEvent);
+  BSP_GPIOE_Config(IRQEvent_KeyTrigger);
 
   while (1) {
     LED_R_Toggle();
     LED_B_Toggle();
     delay_ms(100);
   }
+}
+
+void IRQEvent_KeyTrigger( void )
+{
+  LED_G_Toggle();
 }
 
 /*************************************** END OF FILE ****************************************/

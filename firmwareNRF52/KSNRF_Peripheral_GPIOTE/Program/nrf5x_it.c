@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_it.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -17,7 +17,7 @@
 #include "drivers\nrf5x_system.h"
 #include "drivers\nrf5x_gpiote.h"
 
-/** @addtogroup NRF52_Program
+/** @addtogroup NRF5x_Program
  *  @{
  */
 
@@ -49,12 +49,12 @@ void PendSV_Handler( void ) { while(1); }
 
 void GPIOTE_IRQHandler( void )
 {
-  if (hKey.Instance->EVENTS_IN[hKey.Line] != RESET) {
-    hKey.Instance->EVENTS_IN[hKey.Line] = RESET;
+  if (TIMER_EVENT_IN(hKey.Instance, hKey.Line) != RESET) {
+    TIMER_EVENT_IN(hKey.Instance, hKey.Line) = RESET;
     hKey.EventCallback();
   }
 }
-  
+
 //void SAADC_IRQHandler( void )
 //void TIMER0_IRQHandler( void )
 //void TIMER1_IRQHandler( void )
@@ -85,5 +85,11 @@ void GPIOTE_IRQHandler( void )
 //void RTC2_IRQHandler( void )
 //void I2S_IRQHandler( void )
 //void FPU_IRQHandler( void )
+//void USBD_IRQHandler( void )
+//void UARTE1_IRQHandler( void )
+//void QSPI_IRQHandler( void )
+//void CRYPTOCELL_IRQHandler( void )
+//void SPIM3_IRQHandler( void )
+//void PWM3_IRQHandler( void )
 
 /*************************************** END OF FILE ****************************************/

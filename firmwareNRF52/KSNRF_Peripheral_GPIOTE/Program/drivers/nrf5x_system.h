@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_system.h
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -31,10 +31,10 @@
 typedef void (*pFunc)( void );
 
 typedef enum {
-  KS_OK       = 0x00U,
-  KS_ERROR    = 0x01U,
-  KS_BUSY     = 0x02U,
-  KS_TIMEOUT  = 0x03U
+  KS_OK       = 0U,
+  KS_ERROR    = 1U,
+  KS_BUSY     = 2U,
+  KS_TIMEOUT  = 3U
 } KS_StatusTypeDef;
 
 typedef enum {
@@ -49,10 +49,14 @@ typedef enum {
 
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported macro --------------------------------------------------------------------------*/
-#define __GPIO_SET(_PIN)                    nrf_gpio_pin_set(_PIN)
-#define __GPIO_RST(_PIN)                    nrf_gpio_pin_clear(_PIN)
-#define __GPIO_TOG(_PIN)                    nrf_gpio_pin_toggle(_PIN)
-#define __GPIO_READ(_PIN)                   nrf_gpio_pin_read(_PIN)
+
+#define NRF5x_SYSCLK                        SystemCoreClock
+#define NRF5x_UUID()                        ((uint64_t)(((uint64_t)NRF_FICR->DEVICEID[1] << 32) |  NRF_FICR->DEVICEID[0]))
+
+#define __GPIO_SET(__PORT, __PIN)           ((__PORT)->OUTSET = 1UL << (__PIN))
+#define __GPIO_RST(__PORT, __PIN)           ((__PORT)->OUTCLR = 1UL << (__PIN))
+#define __GPIO_TOG(__PORT, __PIN)           ((__PORT)->OUT ^= 1UL << (__PIN))
+#define __GPIO_READ(__PORT, __PIN)          (((__PORT)->IN >> (__PIN)) & 1UL)
 
 #define BYTE32(__BH2, __BH1, __BL2, __BL1)  (((uint8_t)(__BH2)<<24U) | ((uint8_t)(__BH1)<<16U) | \\
                                             ( (uint8_t)(__BL2)<<8U)  | ((uint8_t)(__BL1)))

@@ -8,15 +8,15 @@
  * 
  *  @file    mathUnit.c
  *  @author  KitSprout
- *  @date    01-Aug-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
 
 /* Includes --------------------------------------------------------------------------------*/
-#include "drivers\stm32f4_system.h"
+#include "drivers\nrf5x_system.h"
 
-/** @addtogroup STM32_Algorithm
+/** @addtogroup NRF5x_Algorithm
  *  @{
  */
 
