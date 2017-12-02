@@ -8,7 +8,7 @@
  * 
  *  @file    mathUnit.h
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -22,7 +22,11 @@
 #endif
 
 /* Includes --------------------------------------------------------------------------------*/
-#include "core_cm4.h"
+#if defined (NRF51)
+  #include "core_cm0.h"
+#elif defined (NRF52)
+  #include "core_cm4.h"
+#endif
 #include "arm_math.h"
 
 /* Exported types --------------------------------------------------------------------------*/

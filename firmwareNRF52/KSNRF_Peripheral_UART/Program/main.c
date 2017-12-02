@@ -8,7 +8,7 @@
  * 
  *  @file    main.c
  *  @author  KitSprout
- *  @date    25-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -36,6 +36,7 @@ int main( void )
   static uint8_t i = 0;
   static uint8_t recvData[16] = {0};
 
+  BSP_CLOCK_Config();
   BSP_GPIO_Config();
 
   if (!KEY_Read()) {

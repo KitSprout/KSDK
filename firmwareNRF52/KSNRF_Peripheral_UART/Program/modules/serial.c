@@ -8,7 +8,7 @@
  * 
  *  @file    serial.c
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -17,7 +17,7 @@
 #include "drivers\nrf5x_system.h"
 #include "modules\serial.h"
 
-/** @addtogroup NRF52_Module
+/** @addtogroup NRF5x_Module
  *  @{
  */
 
@@ -48,7 +48,7 @@ void Serial_Config( void )
 
   /* UART IT *******************************************************************/
   if (hSerial.RxEventCallback != NULL) {
-    UART_IntCmd(&hSerial, SERIAL_INTERRUPT_MODE, ENABLE);
+    UART_InterruptCmd(&hSerial, SERIAL_INTERRUPT_MODE, ENABLE);
     NVIC_SetPriority(SERIAL_UARTx_IRQn, SERIAL_UARTx_IRQn_PRIORITY);
     NVIC_EnableIRQ(SERIAL_UARTx_IRQn);
   }
@@ -70,7 +70,7 @@ __INLINE void Serial_SendByte( uint8_t sendByte )
  */
 __INLINE uint8_t Serial_RecvByte( void )
 {
-  uint8_t recvByte = 0;
+  uint8_t recvByte;
   UART_RecvByte(&hSerial, &recvByte);
   return recvByte;
 }
@@ -121,8 +121,8 @@ __INLINE uint32_t Serial_RecvDataContinuous( uint8_t *recvData )
 int fputc( int ch, FILE *f )
 {
   hSerial.Instance->TXD = (uint8_t)ch;
-  while (hSerial.Instance->EVENTS_TXDRDY != SET);  // Wait for TXD data to be sent
-  hSerial.Instance->EVENTS_TXDRDY = RESET;
+  while (UART_EVENTS_TXDRDY(hSerial.Instance) != SET);  // Wait for TXD data to be sent
+  UART_EVENTS_TXDRDY(hSerial.Instance) = RESET;
   return (ch);
 }
 
@@ -131,8 +131,8 @@ int fputc( int ch, FILE *f )
  */
 int fgetc( FILE *f )
 {
-  while (hSerial.Instance->EVENTS_RXDRDY != SET);  // Wait for RXD data to be received
-  hSerial.Instance->EVENTS_RXDRDY = RESET;
+  while (UART_EVENTS_RXDRDY(hSerial.Instance) != SET);  // Wait for RXD data to be received
+  UART_EVENTS_RXDRDY(hSerial.Instance) = RESET;
   return ((uint8_t)hSerial.Instance->RXD);
 }
 

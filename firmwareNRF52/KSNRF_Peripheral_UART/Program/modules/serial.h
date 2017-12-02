@@ -8,7 +8,7 @@
  * 
  *  @file    serial.h
  *  @author  KitSprout
- *  @date    26-Nov-2017
+ *  @date    01-Dec-2017
  *  @brief   
  * 
  */
@@ -29,6 +29,8 @@
 /* Exported constants ----------------------------------------------------------------------*/
 /* Exported functions ----------------------------------------------------------------------*/
 void      Serial_Config( void );
+void      Serial_Start( void );
+void      Serial_Stop( void );
 
 void      Serial_SendByte( uint8_t sendByte );
 uint8_t   Serial_RecvByte( void );
@@ -39,6 +41,8 @@ uint32_t  Serial_RecvDataWaitTimeout( uint8_t *recvData, uint32_t lens, uint32_t
 uint32_t  Serial_RecvDataContinuous( uint8_t *recvData );
 
 extern UART_InitTypeDef hSerial;
+#define Serial_Start()  UART_Start(&hSerial)
+#define Serial_Stop()   UART_Stop(&hSerial)
 
 #ifdef __cplusplus
 }
