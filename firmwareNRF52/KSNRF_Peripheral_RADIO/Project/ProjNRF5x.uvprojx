@@ -406,6 +406,11 @@
               <FilePath>..\Program\drivers\nrf5x_delay.c</FilePath>
             </File>
             <File>
+              <FileName>nrf5x_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Program\drivers\nrf5x_timer.c</FilePath>
+            </File>
+            <File>
               <FileName>nrf5x_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Program\drivers\nrf5x_uart.c</FilePath>
@@ -454,6 +459,11 @@
               <FileName>serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Program\modules\serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>kSerial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Program\modules\kSerial.c</FilePath>
             </File>
           </Files>
         </Group>

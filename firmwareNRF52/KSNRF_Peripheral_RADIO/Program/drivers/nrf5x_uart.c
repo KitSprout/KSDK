@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_uart.c
  *  @author  KitSprout
- *  @date    01-Dec-2017
+ *  @date    10-Jan-2018
  *  @brief   
  * 
  */

@@ -56,10 +56,11 @@ typedef struct {
   uint8_t RxAddr;
   uint32_t *BaseAddr;
   uint32_t *PacketPtr;
-
 } RADIO_InitTypeDef;
 
 /* Exported constants ----------------------------------------------------------------------*/
+#define RADIOx                            NRF_RADIO
+
 #define RADIO_PACKET_S1_FIELD_SIZE        (0UL)   // Packet S1 field size in bits.
 #define RADIO_PACKET_S0_FIELD_SIZE        (0UL)   // Packet S0 field size in bytes.
 #define RADIO_PACKET_LENGTH_FIELD_SIZE    (0UL)   // Packet length field size in bits.

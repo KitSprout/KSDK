@@ -8,7 +8,7 @@
  * 
  *  @file    nrf5x_system.h
  *  @author  KitSprout
- *  @date    01-Dec-2017
+ *  @date    10-Jan-2018
  *  @brief   
  * 
  */
@@ -66,7 +66,7 @@ typedef enum {
 #define BYTE32U8_2(__B32U8)                 ((uint8_t)(((uint32_t)(__B32U8)&0x0000FF00)>>8U))
 #define BYTE32U8_1(__B32U8)                 ((uint8_t)( (uint32_t)(__B32U8)&0x000000FF))
 
-#define BYTE16(_BH, __BL)                   ((((uint16_t)(__BH))<<8U) | ((uint16_t)(__BL)))
+#define BYTE16(__BH, __BL)                  ((((uint16_t)(__BH))<<8U) | ((uint16_t)(__BL)))
 #define BYTE16U8H(__B16U8)                  ((uint8_t)(((uint16_t)(__B16U8)&0xFF00)>>8U))
 #define BYTE16U8L(__B16U8)                  ((uint8_t)( (uint16_t)(__B16U8)&0x00FF))
 

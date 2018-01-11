@@ -8,13 +8,14 @@
  * 
  *  @file    nrf5x_it.c
  *  @author  KitSprout
- *  @date    01-Dec-2017
+ *  @date    11-Jan-2018
  *  @brief   
  * 
  */
 
 /* Includes --------------------------------------------------------------------------------*/
 #include "drivers\nrf5x_system.h"
+#include "drivers\nrf5x_timer.h"
 #include "modules\serial.h"
 
 /** @addtogroup NRF5x_Program
@@ -25,6 +26,9 @@
 /* Private define --------------------------------------------------------------------------*/
 /* Private macro ---------------------------------------------------------------------------*/
 /* Private variables -----------------------------------------------------------------------*/
+extern TIMER_BaseInitTypeDef htimer;
+extern TIMER_ChannelInitTypeDef htimerCC;
+
 /* Private function prototypes -------------------------------------------------------------*/
 /* Private functions -----------------------------------------------------------------------*/
 void NMI_Handler( void ) { while(1); }
@@ -51,7 +55,16 @@ void UARTE0_UART0_IRQHandler( void )
 //void NFCT_IRQHandler( void )
 //void GPIOTE_IRQHandler( void )
 //void SAADC_IRQHandler( void )
-//void TIMER0_IRQHandler( void )
+
+void TIMER0_IRQHandler( void )
+{
+  if (TIMER_EVENTS_COPPARE(htimer.Instance, htimerCC.Channel) != RESET) {
+    TIMER_EVENTS_COPPARE(htimer.Instance, htimerCC.Channel) = RESET;
+    TIMER_TASKS_CLEAR(htimer.Instance) = SET;
+    htimerCC.EventCallback();
+  }
+}
+
 //void TIMER1_IRQHandler( void )
 //void TIMER2_IRQHandler( void )
 //void RTC0_IRQHandler( void )

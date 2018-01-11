@@ -8,7 +8,7 @@
  * 
  *  @file    boardConfig.h
  *  @author  KitSprout
- *  @date    01-Dec-2017
+ *  @date    11-Jan-2018
  *  @brief   
  * 
  */
@@ -65,6 +65,19 @@
 #define KEY_GPIOTEx_IRQn_POLARITY     NRF_GPIOTE_POLARITY_LOTOHI
 #define KEY_GPIOTEx_IRQn_MODE         GPIOTE_CONFIG_MODE_Event
 #define KEY_GPIOTEx_IRQn_OUTINIT      NRF_GPIOTE_INITIAL_VALUE_LOW
+
+
+/* -------- Timer */
+
+#define TIMERx                        NRF_TIMER0
+#define TIMERx_IRQn                   TIMER0_IRQn
+#define TIMERx_IRQn_PRIORITY          1
+#define TIMERx_MODE                   NRF_TIMER_MODE_TIMER
+#define TIMERx_PRESCALER              NRF_TIMER_FREQ_1MHz
+#define TIMERx_BIT_MODE               NRF_TIMER_BIT_WIDTH_32
+
+#define TIMERx_CHANNEL1               NRF_TIMER_CC_CHANNEL0
+#define TIMERx_CHANNEL1_PERIOD        10000
 
 
 /* -------- UART Serial */

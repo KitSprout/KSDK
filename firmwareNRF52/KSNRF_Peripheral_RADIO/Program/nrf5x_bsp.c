@@ -16,8 +16,10 @@
 /* Includes --------------------------------------------------------------------------------*/
 #include "drivers\nrf5x_system.h"
 #include "drivers\nrf5x_clock.h"
+#include "drivers\nrf5x_timer.h"
 #include "drivers\nrf5x_radio.h"
 #include "modules\serial.h"
+#include "modules\kSerial.h"
 #include "nrf5x_bsp.h"
 
 /** @addtogroup NRF5x_Program
@@ -29,6 +31,8 @@
 /* Private macro ---------------------------------------------------------------------------*/
 /* Private variables -----------------------------------------------------------------------*/
 static RADIO_InitTypeDef hRadio;
+TIMER_BaseInitTypeDef htimer;
+TIMER_ChannelInitTypeDef htimerCC;
 
 /* Private function prototypes -------------------------------------------------------------*/
 /* Private functions -----------------------------------------------------------------------*/
@@ -50,12 +54,32 @@ void BSP_GPIO_Config( void )
   LED_B_Set();
 }
 
+void BSP_TIMER_Config( pFunc event )
+{
+  htimer.Instance  = TIMERx;
+  htimer.Mode      = TIMERx_MODE;
+  htimer.BitMode   = TIMERx_BIT_MODE;
+  htimer.Prescaler = TIMERx_PRESCALER;
+  TIMER_BaseInit(&htimer);
+
+  htimerCC.Channel       = TIMERx_CHANNEL1;
+  htimerCC.Period        = TIMERx_CHANNEL1_PERIOD;
+  htimerCC.EventCallback = event;
+  TIMER_ChannelInit(&htimer, &htimerCC);
+  TIMER_InterruptCmd(&htimer, htimerCC.Channel, ENABLE);
+
+  NVIC_SetPriority(TIMERx_IRQn, TIMERx_IRQn_PRIORITY);
+  NVIC_EnableIRQ(TIMERx_IRQn);
+
+  TIMER_Cmd(&htimer, ENABLE);
+}
+
 void BSP_UART_SERIAL_Config( pFunc rxEvent )
 {
   hSerial.RxEventCallback = rxEvent;
 
   Serial_Config();
-//  kSerial_Config(SERIAL_UARTx);
+  kSerial_Config(SERIAL_UARTx);
   printf("\r\nHello World!\r\n\r\n");
 }
 

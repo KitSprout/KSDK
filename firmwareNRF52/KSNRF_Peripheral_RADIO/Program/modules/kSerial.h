@@ -6,7 +6,7 @@
  *  /_/|_|/_/ \__//___// .__//_/   \___/\_,_/ \__/  
  *                    /_/   github.com/KitSprout    
  * 
- *  @file    nrf5x_delay.h
+ *  @file    kSerial.h
  *  @author  KitSprout
  *  @date    10-Jan-2018
  *  @brief   
@@ -14,22 +14,27 @@
  */
 
 /* Define to prevent recursive inclusion ---------------------------------------------------*/
-#ifndef __NRF5x_DELAY_H
-#define __NRF5x_DELAY_H
+#ifndef __KSERIAL_H
+#define __KSERIAL_H
 
 #ifdef __cplusplus
  extern "C" {
 #endif
+
 /* Includes --------------------------------------------------------------------------------*/
-#include "nrf.h"
+#include "drivers\nrf5x_system.h"
+#include "algorithms\mathUnit.h"
 
 /* Exported types --------------------------------------------------------------------------*/
 /* Exported constants ----------------------------------------------------------------------*/
-/* Exported macro --------------------------------------------------------------------------*/
-/* Exported functions ----------------------------------------------------------------------*/
-void delay_nop( __IO uint32_t __n );
-void delay_us( __IO uint32_t __us );
-void delay_ms( __IO uint32_t __ms );
+/* Exported functions ----------------------------------------------------------------------*/  
+void      kSerial_Config( NRF_UART_Type *USARTx );
+uint32_t  kSerial_Check( uint8_t *packet, void *param, uint16_t *lens, uint8_t *type );
+uint32_t  kSerial_Pack( uint8_t *packet, void *param, void *data, const uint16_t lens, const uint8_t type );
+uint32_t  kSerial_Unpack( uint8_t *packet, void *param, void *data, uint16_t *lens, uint8_t *type );
+uint32_t  kSerial_SendPacket( void *param, void *data, const uint16_t lens, const uint8_t type );
+uint32_t  kSerial_RecvPacket( void *param, void *data, uint16_t *lens, uint8_t *type );
+uint16_t  kSerial_GetPacketDataLens( uint16_t lens, uint8_t type );
 
 #ifdef __cplusplus
 }

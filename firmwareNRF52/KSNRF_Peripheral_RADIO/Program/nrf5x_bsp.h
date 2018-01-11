@@ -29,6 +29,7 @@
 /* Exported functions ----------------------------------------------------------------------*/
 void BSP_CLOCK_Config( void );
 void BSP_GPIO_Config( void );
+void BSP_TIMER_Config( pFunc event );
 void BSP_UART_SERIAL_Config( pFunc rxEvent );
 void BSP_RADIO_Config( void );
 

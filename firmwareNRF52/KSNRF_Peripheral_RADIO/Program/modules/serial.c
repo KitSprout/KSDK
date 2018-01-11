@@ -8,7 +8,7 @@
  * 
  *  @file    serial.c
  *  @author  KitSprout
- *  @date    01-Dec-2017
+ *  @date    10-Jan-2018
  *  @brief   
  * 
  */
@@ -23,6 +23,8 @@
 
 /* Private typedef -------------------------------------------------------------------------*/
 /* Private define --------------------------------------------------------------------------*/
+#define SERIAL_SUPPORT_PRINTF     (1UL)
+
 /* Private macro ---------------------------------------------------------------------------*/
 /* Private variables -----------------------------------------------------------------------*/
 UART_InitTypeDef hSerial = {
@@ -115,6 +117,7 @@ __INLINE uint32_t Serial_RecvDataContinuous( uint8_t *recvData )
   return UART_RecvDataContinuous(&hSerial, recvData);
 }
 
+#if SERIAL_SUPPORT_PRINTF
 /**
  *  @brief  fputc
  */
@@ -135,5 +138,6 @@ int fgetc( FILE *f )
   UART_EVENTS_RXDRDY(hSerial.Instance) = RESET;
   return ((uint8_t)hSerial.Instance->RXD);
 }
+#endif
 
 /*************************************** END OF FILE ****************************************/
